@@ -1,0 +1,71 @@
+Mcu.UserName=STM32L496VGT6
+Mcu.Family=STM32L4
+Mcu.Package=LQFP100
+Mcu.Cpu=Cortex-M4
+ProjectManager.ProjectName=SnoreDetection_Real
+ProjectManager.OutputDirectory=.
+ProjectManager.ToolChainFolder=Makefile
+ProjectManager.ToolChain=Makefile
+ProjectManager.UnderRoot=true
+ProjectManager.MainLocation=Core/Src/main.c
+ProjectManager.SrcLocation=Core/Src
+ProjectManager.IncLocation=Core/Inc
+ProjectManager.LinkerScript=STM32L496VGTx_FLASH.ld
+ProjectManager.CpuClock=80
+
+# GPIO Configuration for DFSDM Channels
+PE9.Signal=DFSDM1_CKOUT   # 麦克风时钟输出
+PB1.Signal=DFSDM1_DATIN0  # 麦克风数据输入
+
+# SAI Configuration for MAX98357
+PE4.Signal=SAI1_FS_A      # LRCK
+PE5.Signal=SAI1_SCK_A     # BCLK
+PE6.Signal=SAI1_SD_A      # DIN
+
+# DFSDM Filter Configuration
+DFSDM1_Filter0.FilterParam-0=Sinc5
+DFSDM1_Filter0.FilterParam-1=FOSR=64
+DFSDM1_Filter0.FilterParam-2=IOSR=4
+DFSDM1_Filter0.FilterParam-3=DmaModeEnabled=1
+DFSDM1_Filter0.FilterParam-4=TriggerMode=Software
+DFSDM1_Filter0.ChannelParam-0=Input=DFSDM1_Channel0
+DFSDM1_Filter0.ChannelParam-1=DataPacking=Standard
+
+# SAI Configuration
+SAI1_BlockA.OperatingMode=Master
+SAI1_BlockA.Protocol=I2S Philips
+SAI1_BlockA.DataSize=24
+SAI1_BlockA.MasterClockOutput=Enabled
+SAI1_BlockA.SyncExt=Disabled
+SAI1_BlockA.FrameLength=64
+SAI1_BlockA.SlotSize=16
+SAI1_BlockA.AudioFrequency=48000
+SAI1_BlockA.Dmaenabledrx=1
+SAI1_BlockA.Dmaenabledtx=1
+
+# DMA Configuration
+Dma.Request0=DFSDM1_FLT0
+Dma.Request1=SAI1_A
+
+Dma.DFSDM1_FLT0.0.Instance=DMA2_Channel1
+Dma.DFSDM1_FLT0.0.Request=DFSDM1_FLT0
+Dma.DFSDM1_FLT0.0.Direction=PeripheralToMemory
+Dma.DFSDM1_FLT0.0.Priority=High
+
+Dma.SAI1_A.1.Instance=DMA1_Channel1
+Dma.SAI1_A.1.Request=SAI1_A
+Dma.SAI1_A.1.Direction=MemoryToPeripheral
+Dma.SAI1_A.1.Priority=Medium
+
+# NVIC Configuration
+NVIC.DFSDM1_IRQn=true\:0\:0\:false\:false\:true\:true\:true\:true
+NVIC.DMA1_Channel1_IRQn=true\:0\:0\:false\:false\:true\:true\:true\:true
+NVIC.DMA2_Channel1_IRQn=true\:0\:0\:false\:false\:true\:true\:true\:true
+
+# Power Configuration
+PWR.VDD=3300
+PWR.Mode=Run
+PWR.RegulatorVoltage=Scale3
+PWR.OverdriveEnable=Enabled
+
+ProjectManager.functionlistsort=SystemClockConfig,N-MX_PWR_Init-PWR-false-HAL-true,N-MX_DFSDM1_Init-DFSDM1-false-HAL-true,N-MX_SAI1_Init-SAI1-false-HAL-true,N-MX_DMA_Init-DMA-false-HAL-true,N-MX_NVIC_Init-NVIC-false-HAL-true
